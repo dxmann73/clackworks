@@ -57,7 +57,7 @@ blog posts on the website. Human gate before publishing.
 
 ## Constraints
 
-Decided after looking at the [prior art](./_incoming/prior-art-product-overview.md).
+Decided after looking at the [prior art](./docs/research/prior-art-product-overview.md).
 
 - **Open source.** Build this in the open, share it and collaborate. Strength in numbers.
   Public scrutiny. If this ever makes money, it will be from people wielding it skillfully.
@@ -93,7 +93,7 @@ memories. What it lacks, as far as we can tell today, is a good way to build det
 
 ## Why not use existing tools
 
-Detail per product in [_incoming/prior-art-product-overview.md](./_incoming/prior-art-product-overview.md).
+Detail per product in [docs/research/prior-art-product-overview.md](./docs/research/prior-art-product-overview.md).
 
 **Ruled out — no self-hosted variant.** Zapier, Make, Gumloop, IFTTT; the mail-triage products
 Shortwave, Fyxer, Cora, Gmelius, SaneBox. Every one of them requires handing over

@@ -11,21 +11,22 @@ decision rests on a number.
 [prior-art.md](./prior-art.md) maps systems to Clackworks layers but deliberately excludes
 vendor detail. This file is that detail: what each named product actually is, who it is for,
 whether it can be self-hosted on terms that are actually workable, and what it costs.
-Reference material for the falsification test and the build-versus-buy question, not a
-decision.
+Reference material for the [falsification test](./README.md) and the build-versus-buy
+question, not a decision.
 
 ## Filters applied
 
-Two constraints, both from the scope answers recorded in
-[open-questions.md](../open-questions.md), now decide what belongs in this file:
+Two constraints, both from [VISION.md](../../VISION.md#constraints), decide what belongs in this
+file:
 
 1. **Self-hostable, and workable when self-hosted.** Not "has a community edition" — the free
    self-hosted build has to be capable enough to run the real use case. Open source is a bonus,
    not the bar; source-available is acceptable if the restrictions do not bite. Restrictions
    that do bite are recorded per product.
-2. **Evaluable without paying.** Personal use first, product possibly later. A free tier that
-   caps workflows below what the use case needs cannot be used to evaluate anything. Zapier's
-   two-step ceiling is the canonical example.
+2. **Evaluable without paying.** A free tier that caps workflows below what the use case needs
+   cannot be used to evaluate anything. Zapier's two-step ceiling is the canonical example.
+   Clackworks itself is community-first with an enterprise edition left possible, so a
+   dependency whose licence forbids that path is disqualified too.
 
 Hosted-only products are named only where they teach something — a UX worth copying, or a
 pricing band worth knowing. They are never candidates. A hosted product with no self-hostable
@@ -42,7 +43,9 @@ causes and only one of them is interesting.
 
 ## Workflow automation — producers to pipelines
 
-The five you shortlisted. The self-host filter cuts three of them.
+The five shortlisted. The self-host filter cuts three of them, and the licence constraint in
+[VISION.md](../../VISION.md#why-not-use-existing-tools) cuts n8n as well — reference only, not a
+candidate.
 
 | Product          | What it is                                                                | Typical use case                               | Self-host | Licence                              | Paid from                                 |
 | ---------------- | ------------------------------------------------------------------------- | ---------------------------------------------- | --------- | ------------------------------------ | ----------------------------------------- |
@@ -62,19 +65,21 @@ The five you shortlisted. The self-host filter cuts three of them.
 | **Make**         | 1,000 credits/mo, **2 active scenarios**, 15-min minimum interval     | **Yes.** Two live scenarios cannot host a routing layer plus pipelines. 15-min floor rules out reactive mail handling |
 | **Gumloop**      | None — 14-day trial                                                   | **Yes.** No permanent free tier at all                                            |
 
-**Read:** Against your constraints only **n8n** and **Activepieces** survive, and both survive
-comfortably — the free self-hosted builds are the full product minus organisation features you
-do not need for one person. n8n's queue mode being included is the notable one: real scaling is
-not paywalled.
+**Read:** On the self-host and free-tier filters only **n8n** and **Activepieces** survive, and
+both survive comfortably — the free self-hosted builds are the full product minus organisation
+features one person does not need. n8n's queue mode being included is the notable one: real
+scaling is not paywalled. The licence filter then removes n8n as well, leaving **Activepieces**
+as the one candidate in this section.
 
 Between the two: n8n has vastly more integrations and mindshare, Activepieces has the cleaner
-licence. Since answer 1 leaves "could turn into a product" open, that licence difference is not
-cosmetic — see [Licence risk](#licence-risk-if-this-becomes-a-product) below.
+licence. Since [VISION.md](../../VISION.md#constraints) keeps the enterprise path open, that licence
+difference is not cosmetic — see [Licence risk](#licence-risk-if-this-becomes-a-product) below.
 
 The loss from dropping Zapier, Make, and Gumloop is smaller than it looks: their value is
 connector breadth, and all three would carry personal mail and messages through someone else's
-infrastructure, which is a [security-and-trust.md](./security-and-trust.md) problem before it is
-a feature comparison. Keep them as UX reference for what a routing UI should feel like.
+infrastructure, which is a [security-and-trust.md](../../_incoming/security-and-trust.md)
+problem before it is a feature comparison. Keep them as UX reference for what a routing UI
+should feel like.
 
 **Excluded earlier:** Windmill (developer internal-tooling shape), Node-RED and IFTTT (IoT and
 smart-home shape), Huginn (pre-LLM, no AI-native path). Huginn remains the closest structural
@@ -97,7 +102,7 @@ for a human. Hosted-only options removed; every row below runs on your own hardw
 | **DBOS**        | Durable workflows as a library on top of Postgres — no separate server          | Durability without running an orchestrator     | yes       | OSS (MIT)                     | Everything                               |
 | **LangChain Agent Inbox** | Reference UI for reviewing and resolving LangGraph interrupts         | The approval queue for a LangGraph app         | yes       | OSS                           | Everything                               |
 
-**Read:** For [human-in-the-loop.md](./human-in-the-loop.md) there are now two credible
+**Read:** For [gates-and-directives.md](../../_incoming/gates-and-directives.md) there are now two credible
 self-hosted patterns rather than a hosted service. **LangGraph** `interrupt()` plus **Agent
 Inbox** is the agent-native one. **Kestra**'s `Pause` task is the workflow-native one, and it
 persists the paused state in the database so an execution survives a restart — which is the
@@ -107,8 +112,10 @@ For durability alone, **Hatchet** and **DBOS** are the right weight class for a 
 system; **Temporal** is correct and considerably more machine than one person needs.
 
 **Removed:** HumanLayer (hosted-only, and pivoted away from approval-as-a-service anyway).
-**Rejected:** Restate — genuinely good durable execution, but BUSL-1.1 is not OSS and the
-licence converts only on a delay, which conflicts with the product-later possibility.
+**Rejected on licence,** both under [VISION.md](../../VISION.md#why-not-use-existing-tools):
+Restate — genuinely good durable execution, but BUSL-1.1 is not OSS and converts only on a
+delay; and Inngest, SSPL until each release ages out. Listed above for reference, not as
+candidates.
 
 ## Agent memory
 
@@ -120,8 +127,8 @@ licence converts only on a delay, which conflicts with the product-later possibi
 | **Cognee**   | Memory platform building a graph plus vector store over ingested data          | Persistent memory across heterogeneous sources | yes   | OSS (Apache-2.0)  | Everything                  |
 
 **Read:** Letta's model — the agent as a persistent addressable thing rather than a function
-call — matches [memory.md](./memory.md) and [agents.md](./agents.md) most closely, and it is
-Apache-2.0 all the way down.
+call — matches [memory.md](../../_incoming/memory.md) and
+[agents.md](../../_incoming/agents.md) most closely, and it is Apache-2.0 all the way down.
 
 **Replaced:** hosted Zep is gone from this list, and not only on the self-host filter — the
 `getzep/zep` repository is now examples and integrations, not a deployable server. The engine
@@ -137,9 +144,10 @@ than the product that was built on it. Use Graphiti; do not plan around Zep Comm
 | **Leon**     | Open-source personal assistant, skill-based, largely pre-LLM architecture            | DIY voice/text assistant                  | yes       | OSS (MIT)        | Everything              |
 
 **Read:** OpenClaw is the strongest candidate for the messaging half of
-[producers.md](./producers.md) — that integration work is genuinely done, maintained, and MIT.
-Its full-system-access model is a direct problem for
-[security-and-trust.md](./security-and-trust.md) and must not be adopted uncritically.
+[producers.md](../../_incoming/producers.md) — that integration work is genuinely done,
+maintained, and MIT. Its full-system-access model is a direct problem for
+[security-and-trust.md](../../_incoming/security-and-trust.md) and must not be adopted
+uncritically.
 
 ### OpenClaw in detail, checked 2026-08-15
 
@@ -148,13 +156,13 @@ multiple agents with separate memories — was wrong. What it actually has:
 
 | Capability                | What exists                                                                                                                 | Clackworks area                                     |
 | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| Deterministic pipelines   | **Lobster** — multi-step tool pipelines as a small constrained DSL, run as one tool call. Pipelines are data: loggable, diffable, replayable | [pipelines.md](./pipelines.md)                       |
-| Human gates               | Lobster halts on side effects (send, post, delete) and returns a resume token; approve and resume without re-running earlier steps | [human-in-the-loop.md](./human-in-the-loop.md)       |
-| Durable orchestration     | **Task Flow** — multi-step flows with status, JSON state, revision counter, `waiting`/`blocked` states; survives gateway restarts | [pipelines.md](./pipelines.md)                       |
-| Many agents, own memory   | Isolated agents, each with workspace, persona files (`SOUL.md`, `IDENTITY.md`, `USER.md`), own SQLite session store, per-agent memory-wiki vaults | [agents.md](./agents.md), [memory.md](./memory.md)   |
-| Persona inbound addressing | **Bindings** map a channel account — a Slack workspace, a WhatsApp number — to one agent                                       | [personas-and-identity.md](./personas-and-identity.md) |
-| Command-level approval    | **Exec approvals** — host guardrail with `deny`/`allowlist`/`ask`/`auto`/`full`, per agent                                     | [security-and-trust.md](./security-and-trust.md)     |
-| Scheduling                | Cron jobs and background tasks invoking agent sessions                                                                        | [triggers-and-scheduling.md](./triggers-and-scheduling.md) |
+| Deterministic pipelines   | **Lobster** — multi-step tool pipelines as a small constrained DSL, run as one tool call. Pipelines are data: loggable, diffable, replayable | [pipelines.md](../../_incoming/pipelines.md)                       |
+| Human gates               | Lobster halts on side effects (send, post, delete) and returns a resume token; approve and resume without re-running earlier steps | [gates-and-directives.md](../../_incoming/gates-and-directives.md)       |
+| Durable orchestration     | **Task Flow** — multi-step flows with status, JSON state, revision counter, `waiting`/`blocked` states; survives gateway restarts | [pipelines.md](../../_incoming/pipelines.md)                       |
+| Many agents, own memory   | Isolated agents, each with workspace, persona files (`SOUL.md`, `IDENTITY.md`, `USER.md`), own SQLite session store, per-agent memory-wiki vaults | [agents.md](../../_incoming/agents.md), [memory.md](../../_incoming/memory.md)   |
+| Persona inbound addressing | **Bindings** map a channel account — a Slack workspace, a WhatsApp number — to one agent                                       | [personas-and-identity.md](../../_incoming/personas-and-identity.md) |
+| Command-level approval    | **Exec approvals** — host guardrail with `deny`/`allowlist`/`ask`/`auto`/`full`, per agent                                     | [security-and-trust.md](../../_incoming/security-and-trust.md)     |
+| Scheduling                | Cron jobs and background tasks invoking agent sessions                                                                        | [triggers-and-scheduling.md](../../_incoming/triggers-and-scheduling.md) |
 
 The docs' own worked example for Lobster is recurring email triage with an approval halt before
 sending drafts. That is UC-1 minus the classification step.
@@ -163,8 +171,8 @@ Two more, added after checking the obvious workaround:
 
 | Capability            | What exists                                                                                     | Clackworks area                    |
 | --------------------- | --------------------------------------------------------------------------------------------------- | ----------------------------------- |
-| Email                 | IMAP/SMTP tool, or Gmail over OAuth. Not a *binding* target, but fully reachable                     | [producers.md](./producers.md)      |
-| Agent-to-agent handoff | `sessions_send` targeting another agent's session key (`agent:tax-advisor:main`), same gateway only  | [routing.md](./routing.md)          |
+| Email                 | IMAP/SMTP tool, or Gmail over OAuth. Not a *binding* target, but fully reachable                     | [producers.md](../../_incoming/producers.md)      |
+| Agent-to-agent handoff | `sessions_send` targeting another agent's session key (`agent:tax-advisor:main`), same gateway only  | [routing.md](../../_incoming/routing.md)          |
 
 Together those close the last apparent gap: a router agent classifies and hands off, so
 content-based routing into personas is assemblable today without writing a platform.
@@ -174,16 +182,16 @@ What it genuinely does **not** provide — properties rather than parts:
 - **Routing as inspectable data.** A router agent's judgement is a prompt: not diffable, not
   versioned, not answerable offline. Binding precedence is address-only — peer, guild, team,
   account, channel.
-- **A single normalizing front door.** No common item shape, provenance, or dedup across
-  heterogeneous producers.
+- **One normalized item shape.** No common shape, provenance, or dedup across heterogeneous
+  producers.
 - **End-to-end item lineage.** Sessions and tasks are traceable; an item crossing pipelines and
   re-entering as a pipeline's output is not a concept, and no item id survives a `sessions_send`.
 - **An exhaust as a loop.** An agent can write unroutable items somewhere; nothing clusters
-  them, proposes a pipeline, or replays a backlog.
+  them, proposes a pipeline, or re-processes a backlog.
 
 **Read:** every *mechanism* in the Clackworks vision exists here, self-hosted and MIT. What is
 missing is a set of *guarantees*. Whether those are a system or a plugin is now the central
-question — see the falsification test result in [prior-art.md](./prior-art.md).
+question — see the falsification test result in [README.md](./README.md).
 
 ## Mail triage
 
@@ -215,9 +223,9 @@ from this table at all.
 | --------- | -------------------------------------------------------------------------------------------------------- | ------- | ---- |
 | **CaMeL** | DeepMind research pattern, not a product. A privileged LLM plans; a quarantined LLM handles untrusted data; a capability system enforces the split | Paper   | Free |
 
-**Read:** Relevant to [security-and-trust.md](./security-and-trust.md). A mail producer taking
-mail from strangers is exactly the threat model CaMeL addresses. Adopting the pattern constrains
-pipeline design; that trade-off is an open question, not a decision.
+**Read:** Relevant to [security-and-trust.md](../../_incoming/security-and-trust.md). A mail
+producer taking mail from strangers is exactly the threat model CaMeL addresses. Adopting the
+pattern constrains pipeline design; that trade-off is an open question, not a decision.
 
 ## Open-source health
 
@@ -249,7 +257,8 @@ Only **Mail-0/Zero** looks unhealthy — three months without a commit on a youn
 
 ## Licence risk if this becomes a product
 
-Personal use makes every licence here workable. "Could turn into a product" does not, and the
+Self-hosted personal use makes every licence here workable. The enterprise edition
+[VISION.md](../../VISION.md#how-clackworks-itself-is-licensed) leaves open does not, and the
 difference is worth knowing before code depends on it.
 
 | Licence                        | Products                                       | If Clackworks ships as a product                              |
@@ -260,9 +269,10 @@ difference is worth knowing before code depends on it.
 | Sustainable Use Licence        | n8n                                            | **Internal and non-commercial use only.** No offering n8n-derived functionality to third parties, no white-labelling |
 | BUSL-1.1                       | Restate (rejected)                             | Restricted until conversion date                                |
 
-**Read:** this is the one place the two answers collide. n8n is the best workflow engine here
-and its licence is the one that forbids the product path. Activepieces is the same shape under
-MIT. If "product later" stays live, that asymmetry should decide, not the integration count.
+**Read:** this is the one place the two constraints collide. n8n is the best workflow engine here
+and its licence is the one that forbids the enterprise path. Activepieces is the same shape under
+MIT. While [VISION.md](../../VISION.md#constraints) keeps that path open, the asymmetry should
+decide, not the integration count.
 
 ## Vendor drift found while checking sources
 
@@ -278,12 +288,9 @@ record of what changed and when, since the same claims will drift again.
 
 ## Open questions
 
-- n8n or Activepieces as the execution layer — integration breadth against a licence that
-  permits the product path. Feeds the build-versus-buy question in
-  [prior-art.md](./prior-art.md).
 - Does the human gate come from the workflow engine (Kestra-style `Pause`) or the agent runtime
   (LangGraph `interrupt()`)? The two imply different shapes for
-  [pipelines.md](./pipelines.md).
+  [pipelines.md](../../_incoming/pipelines.md).
 - Is Inbox Zero a component, a competitor, or a producer? It is a destination product today.
 - What does the assembled self-hosted stack cost per month at personal volume, counting model
   tokens and the machine it runs on? Nobody has costed this, and self-hosting moves the cost
@@ -293,4 +300,4 @@ record of what changed and when, since the same claims will drift again.
 
 - Recommending one. This is a survey.
 - Feature-by-feature comparison matrices. The falsification test in
-  [prior-art.md](./prior-art.md) is the cheaper way to find what matters.
+  [README.md](./README.md) is the cheaper way to find what matters.
