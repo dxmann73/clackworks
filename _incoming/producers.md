@@ -35,8 +35,8 @@ attached without touching anything downstream.
 - An item leaves a producer carrying enough for the router to decide on it alone — provenance,
   the account it arrived on, sender and addressee where they exist, and the content. The router
   reads nothing beside the item.
-- An egress can act as a producer: what leaves a pipeline can be fed back in as an item, and
-  routing it means attaching a router to that egress. See
+- An egress can act as a producer under the same contract: it emits produced items and attaches
+  their provenance, and routing what leaves it means attaching a router to that egress. See
   [outputs-and-chaining.md](./outputs-and-chaining.md).
 - There is no stage behind the producer. An item goes from here to the router, and
   filtering and enrichment happen at the ingress in front of whichever pipeline it reaches.
@@ -54,8 +54,8 @@ attached without touching anything downstream.
 - With no stage between producer and router, does the producer own normalization into a common
   item shape, the stable item identity, and deduplication? It is the only stage that sees an
   item before routing, but "one shape across all producers" is hard to guarantee from inside
-  each producer. See [open-questions.md](../open-questions.md).
-- Is an egress-acting-as-producer a real producer with the same contract, or a lighter thing?
+  each producer. This file owns the question; [ingress.md](./ingress.md) and
+  [prior-art.md](../docs/research/prior-art.md) both point at it.
 - Backfill: when a producer is attached, does it see history, or only what arrives afterwards?
 - How much of a large source item travels with it (full video transcript, full mail thread,
   entire file) versus a reference to be fetched later?

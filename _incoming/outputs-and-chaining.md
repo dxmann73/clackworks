@@ -7,12 +7,13 @@ Status: draft
 Pipelines produce something. That something either ends the chain or starts the next one. This
 defines what a produced item carries and how the loop back in works without becoming chaos.
 
-What a pipeline produces is an item. There is no second type: it is the same kind of thing that
-entered, and calling it "produced" only says where it came from.
+What a pipeline produces is an item. There is no second type and no extra fields: it is the same
+kind of thing that entered, and "produced" is purely a statement about lineage. An item is
+mutable and carries its history, so a step changing an item does not mint a new type of thing.
 
 ## In scope
 
-- What a produced item carries beyond what any item carries.
+- What "produced" means for an item's lineage and history.
 - Terminal versus re-entrant items.
 - Loop prevention and lineage.
 
@@ -31,21 +32,20 @@ entered, and calling it "produced" only says where it came from.
   in a text file that started it.
 - Cycles must be detectable and stoppable. A chain that feeds itself needs a limit and a
   visible reason when it hits it.
-- A produced item that no pipeline consumes and that is not terminal is a defect, and it should
-  surface — probably in the exhaust.
+- A produced item that is not terminal and that the router attached to its egress cannot place
+  is unroutable like anything else, and lands in the exhaust rather than vanishing.
 
 ## Open questions
 
 - Are produced items stored by the system, or only referenced where they live (in a repo, on the
   website, in a mailbox)?
-- Versioning: a draft revised three times — one item with versions, or three items?
+- A draft revised three times: one item whose history carries the three revisions, or three
+  items linked by lineage? Items are mutable with history, which permits either.
 - Do produced items have a lifecycle (draft, approved, published, superseded), or is that
   pipeline-specific?
 - What is the cycle-detection mechanism — hop budget, lineage inspection, declared chains?
 - Can a produced item have several consumers, and what if they conflict?
 - Are failed runs' partial outputs items, or discarded?
-- Produced and arrived items are one type. Does a produced item then carry fields it never uses,
-  or is "produced" purely a lineage property of an item with no extra fields at all?
 
 ## Not in scope
 

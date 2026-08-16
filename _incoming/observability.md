@@ -4,21 +4,21 @@ Status: draft
 
 ## Purpose
 
-An item must be traceable end-to-end, and the health of the machine must be visible at a
+An item must carry lineage end to end, and the health of the machine must be visible at a
 glance. A chain reaction you cannot watch is a chain reaction you cannot debug.
 
 ## In scope
 
-- Tracing a single item through every hop.
+- Lineage: following a single item through every hop.
 - System health and the signals that matter.
 - Audit and reproducibility.
 
 ## Requirements
 
-- End-to-end trace per item: where it came from, why the router chose what it chose, what the
-  ingress did, every step of every run, every human touch, everything produced, and what chained
-  onward.
-- Traces survive chaining. Following a published post back to its origin is one query, not
+- Lineage per item, end to end: where it came from, why the router chose what it chose, what the
+  ingress did, every step of every run, every gate decision and who made it, everything produced,
+  and what chained onward.
+- Lineage survives chaining. Following a published post back to its origin is one query, not
   detective work.
 - Decisions are recorded with their reasons, including model-made decisions and their
   confidence.

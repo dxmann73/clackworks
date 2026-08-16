@@ -16,14 +16,17 @@ and personality are covered separately in
 
 ## Requirements
 
-- An agent runs an agent-driven pipeline. It has a goal, an item, tools, memory, and an
-  assigned model.
+- An agent runs an agent-driven pipeline. It has a persona, a goal, an item, tools, memory, and
+  an assigned model.
+- An agent is not bound to one machine. It runs wherever it is hosted, and nothing upstream of
+  it depends on where that is.
 - An agent's capabilities are declared and bounded. The tax advisor can file and read invoices;
   it cannot push to a repository. Capability is per agent, not global.
 - Agents can produce items and can hand items back in for routing. They cannot invoke arbitrary
   pipelines directly — chaining goes through the normal path so it stays observable.
-- An agent must be able to say "I cannot handle this" and route the item to the exhaust with a
-  reason, instead of producing something plausible and wrong.
+- An agent must be able to say "I cannot handle this" and hand the item back with a reason —
+  to routing, or to the exhaust when routing has nowhere left to send it — instead of producing
+  something plausible and wrong.
 - An agent must be able to escalate to a human mid-run, not only at predefined gates.
 - Every agent action that touches the outside world (send mail, post, commit, pay, publish) is
   recorded, and each such capability carries its own directive about human involvement.
@@ -43,8 +46,8 @@ consumers for each other.
 
 - Do agents run one item at a time, or can one agent have several concurrent runs? Memory makes
   this non-trivial.
-- Can an agent create or modify pipelines and routing rules, or is the control plane
-  human-only?
+- Can an agent decide at a gate on another agent's run, and does an agent gate need a persona of
+  its own — see [gates-and-directives.md](./gates-and-directives.md).
 - Do agents negotiate — can the nutrition coach ask the surf coach a question mid-run, and what
   does that do to the trace?
 - Is there a supervisor or orchestrator agent, or is routing the only dispatcher?

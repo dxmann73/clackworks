@@ -4,8 +4,8 @@ Status: draft
 
 ## Purpose
 
-Where producers, routing, pipelines, personas, directives, and budgets are defined and changed —
-and how the person operating the machine actually works with it day to day.
+Where producers, routing, pipelines, personas, ingresses, egresses, directives, and budgets are
+defined and changed — and how the person operating the machine actually works with it day to day.
 
 ## In scope
 
@@ -16,14 +16,14 @@ and how the person operating the machine actually works with it day to day.
 ## Requirements
 
 - Everything that shapes behaviour is configuration, not buried logic: producers, routing rules,
-  pipeline registration, ingress definitions, persona definitions, directives, model assignments,
-  budgets.
+  pipeline registration, ingress and egress definitions, persona definitions, directives, model
+  assignments, budgets.
 - Configuration is versioned and diffable. What changed, when, and why is answerable.
 - Changes take effect predictably. What happens to in-flight runs when their pipeline or
   directive changes is defined, not incidental.
 - Dry run: a routing change can be evaluated against stored items before it goes live.
-- The daily operating surface covers three things — the exhaust queue, runs waiting on a human,
-  and traces when something looks wrong. These are the screens that matter.
+- The daily operating surface covers three things — the exhaust and its decisions, runs waiting
+  at a gate, and an item's lineage when something looks wrong. These are the screens that matter.
 - Creating a pipeline should be cheap enough that the answer to an exhaust cluster is usually
   "build one".
 - Fail fast on bad configuration: an invalid routing rule, a pipeline with no model where one is

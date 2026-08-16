@@ -7,6 +7,10 @@ Status: draft
 Concrete end-to-end walkthroughs. These are the tests the specification has to pass: if a
 design cannot express these, it is wrong.
 
+Second test, from [VISION.md](../VISION.md#how-clackworks-itself-is-licensed): every use case
+here must be fully runnable on the community edition. If one of them needs a capability that
+lands behind the enterprise edge, the split is wrong, not the use case.
+
 ## In scope
 
 - Narrative walkthroughs from producer to terminal item.
@@ -57,12 +61,16 @@ needs to go back for revision rather than forward; the video transcript is an ho
 
 ## UC-4: Working the exhaust
 
+The only use case neither falsification arm expresses — see
+[research/README.md](../docs/research/README.md#what-arm-2-shows). Both give somewhere to put
+unroutable items; neither clusters them, proposes a pipeline, or re-processes a backlog.
+
 Fourteen unroutable items accumulate. The system clusters them: they are all newsletters from
 the same category. The user decides — build a pipeline, or discard the lot deliberately. If a
-pipeline is built, the fourteen items are replayed through routing.
+pipeline is built, the fourteen items are re-processed through routing.
 
-Awkward parts: replaying stale items that were time-sensitive; a cluster that is actually two
-different things.
+Awkward parts: re-processing stale items that were time-sensitive; a cluster that is actually
+two different things.
 
 ## UC-5: Someone mails the surf coach directly
 
@@ -76,6 +84,8 @@ agent; the reply commits to something.
 ## Open questions
 
 - Which use case is built first, and what is the minimum machine that supports it end to end?
+  UC-1 is expressible on both surveyed arms already, so building it first proves nothing; UC-4
+  is the one nothing expresses.
 - Are there use cases here that any sane design should refuse, rather than support?
 
 ## Not in scope

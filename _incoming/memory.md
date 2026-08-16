@@ -4,7 +4,7 @@ Status: draft
 
 ## Purpose
 
-What agents retain across runs, who can see it, and how it stays accurate rather than
+What agents retain across sessions, who can see it, and how it stays accurate rather than
 accumulating into noise.
 
 ## In scope
@@ -15,7 +15,8 @@ accumulating into noise.
 
 ## Requirements
 
-- Memory is distinct from run context. Context dies with the run; memory persists.
+- Memory is distinct from the working context of a session. Context dies with the session;
+  memory outlives it.
 - Memory is scoped, and the scope is explicit. The surf coach remembering a conversation is not
   the same as the tax advisor being able to read it.
 - Memory must be inspectable by the user — you can see what a persona believes it knows.

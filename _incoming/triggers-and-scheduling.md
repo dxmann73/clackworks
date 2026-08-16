@@ -17,8 +17,9 @@ producers, routing, and pipelines.
 
 - Both push (webhook, callback, watch) and pull (poll, scan on a schedule) must be possible.
   Some sources support only one.
-- A pipeline can be triggered by: an item arriving from routing, a schedule, an item another
-  pipeline produced, or a human on demand.
+- A pipeline can be triggered by: an item arriving from routing, a schedule, or a human on
+  demand. An item another pipeline produced is not a fourth case — it leaves through that
+  pipeline's egress and comes back through routing like anything else.
 - Manual trigger with a hand-supplied item must always be possible — for testing and for
   one-off work.
 - Nothing is lost while the system is down. Items that arrive during downtime are processed

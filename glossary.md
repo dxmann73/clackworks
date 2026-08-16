@@ -15,7 +15,8 @@ does so; if what leaves it should be routed onward, a router is attached to that
 the router cannot route goes to the **exhaust**.
 
 **Item** — one thing moving through the system. A mail, a video, a note, a TODO, an issue, a
-message, the output of an earlier pipeline. The unit that gets routed and worked on.
+message, the output of an earlier pipeline. The unit that gets routed and worked on. An item is
+mutable and carries its history.
 
 **Produced item** — an item a pipeline made. Not a separate type: it is an item, and anything
 true of items is true of it. The phrase is a statement about where the item came from, nothing

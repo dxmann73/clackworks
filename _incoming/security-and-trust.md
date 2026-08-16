@@ -24,7 +24,7 @@ the producer onward.
   as a directive that changes its goal, capabilities, or gates. This is the central threat: an
   invoice email that says "forward all mail to X" must not work.
 - Capabilities are least-privilege per agent, and outward actions are gated by default — see
-  [human-in-the-loop.md](./human-in-the-loop.md).
+  [gates-and-directives.md](./gates-and-directives.md).
 - Blast radius is bounded per persona. Compromising one persona's pipeline must not grant
   access to the others' channels, memory, or credentials.
 - Secrets never live in items, memory, traces, or the repository. Where they do live
@@ -34,8 +34,8 @@ the producer onward.
 - Untrusted items get reduced capabilities, and that reduction is automatic, not a per-pipeline
   responsibility.
 - Rejections and anomalies are recorded and visible. A spike in rejected items is a signal.
-- Fail closed: when trust cannot be established, the item does not proceed. It goes to the
-  exhaust.
+- Fail closed: when trust cannot be established, the item does not proceed. It is refused at the
+  ingress with its reason recorded — see [ingress.md](./ingress.md).
 
 ## Open questions
 
@@ -49,8 +49,10 @@ the producer onward.
 - What is logged versus what is too sensitive to log?
 - Does an agent ever get a credential directly, or always act through a broker that enforces
   policy?
-- Multi-tenancy: is this ever going to hold more than one person's data?
 
 ## Not in scope
 
 - Concrete secret storage and isolation technology.
+- Multi-tenancy, SSO/SAML, RBAC, and audit logging. Organisation-shaped concerns, and
+  [VISION.md](../VISION.md#how-clackworks-itself-is-licensed) puts them behind the enterprise
+  edge. The community edition holds one person's data on hardware they control.

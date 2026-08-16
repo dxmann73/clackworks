@@ -24,8 +24,8 @@ and raise a human gate when something about the item looks off.
 - An ingress belongs to a pipeline, not to a producer. Several pipelines fed by the same producer
   can guard their entrances differently, and one item may pass more than one ingress on its way
   through chained pipelines.
-- An ingress may refuse an item. A refusal is recorded with its reason and the item lands in the
-  exhaust — never a silent drop.
+- An ingress may refuse an item. A refusal is recorded with its reason — never a silent drop.
+  Whether the item goes back to routing or straight to the exhaust is open below.
 - An ingress may raise a human gate, and this is its most characteristic job: judgement about the
   item *in context*. A mail from a trusted sender that carries an office document, when that
   sender has never sent documents before, is flagged for a human before the pipeline runs rather
@@ -41,17 +41,10 @@ and raise a human gate when something about the item looks off.
 - An ingress does no work on behalf of the pipeline. It admits, enriches, or stops. Taking the
   item apart is the pipeline's job.
 
-## Example
-
-A mail from someone trusted that carries an office document, when that person
-  never sends documents, is held for a human at the ingress
-
 ## Prior-art evidence
 
 Checked 2026-08-15 against OpenClaw and the Activepieces arm; see
-[prior-art.md](./prior-art.md). Evidence, not decisions. Collected when this file described a
-single front door — it reads differently now that the entrance is per pipeline, and that is noted
-per point.
+[prior-art.md](../docs/research/prior-art.md). Evidence, not decisions.
 
 - **A per-producer entrance exists in shape.** OpenClaw's Gmail path is push: Gmail API `watch`
   publishing to a GCP PubSub topic, delivered to a Gateway hook whose mapping matches on `path`.
@@ -65,8 +58,8 @@ per point.
   identity and dedup.
 - **No common item shape across producers.** Each channel and each hook carries its own payload.
   Normalization is the addition, and it is the requirement no surveyed system meets. With no
-  stage between producer and router, it has no owner — see
-  [open-questions.md](../open-questions.md).
+  stage between producer and router, it has no owner — the question sits with
+  [producers.md](./producers.md).
 - **Admission control for untrusted senders has a documented precedent, and it is ingress-shaped.**
   OpenClaw's recommended Gmail reader runs a dedicated agent with `sandbox.mode: all`,
   `scope: session`, `workspaceAccess: none`, a minimal tool profile, an explicit untrusted-data

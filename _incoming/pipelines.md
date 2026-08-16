@@ -15,7 +15,10 @@ touching routing internals or producers.
 
 ## Requirements
 
-- A pipeline consumes items and produces items. Both ends are explicit.
+- A pipeline consumes items and produces items. Both ends are explicit. Its output side is an
+  [egress](./outputs-and-chaining.md), and that egress is what lets a pipeline act as a producer.
+- A pipeline is made of steps, and a step is a first-class thing: it is where a gate can sit,
+  what a failure names, and what a trace shows.
 - Two kinds, and the kind is declared: **deterministic** (fixed steps, same input gives same
   output, no judgement) and **agent-driven** (an agent pursues a goal with tools and
   judgement).
@@ -26,7 +29,8 @@ touching routing internals or producers.
   half-processed.
 - Every pipeline can have a model and compute resources assigned — see
   [models-and-resources.md](./models-and-resources.md).
-- Human gates can be placed at any step — see [human-in-the-loop.md](./human-in-the-loop.md).
+- Gates can be placed at any step, and the decider at one is a human or an agent — see
+  [gates-and-directives.md](./gates-and-directives.md).
 - Failure is explicit and observable. A failed run says what failed, at which step, with what
   input, and where the item went afterwards.
 - Fail fast inside a pipeline too: a step that gets a value it does not expect stops the run
@@ -36,7 +40,8 @@ touching routing internals or producers.
 
 ## Open questions
 
-- Are steps a first-class concept, or is a pipeline opaque with only its edges specified?
+- How much of a pipeline's internals are visible from outside — are steps addressable and
+  configurable individually, or only declared and observed?
 - Can a pipeline be partly deterministic and partly agent-driven, or does mixing mean two
   chained pipelines?
 - Retry and resume: does a failed run restart from the beginning, or from the failed step?

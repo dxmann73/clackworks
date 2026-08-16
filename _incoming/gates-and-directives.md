@@ -1,15 +1,22 @@
-# Human in the loop
+# Gates and directives
 
 Status: draft
 
 ## Purpose
 
-At every point there is a directive on whether a human is involved. This defines what kinds of
-involvement exist, where directives sit, and how a human is reached without being buried.
+At every point there is a directive on whether the run halts for a decision and who makes it.
+This defines what kinds of involvement exist, where directives sit, and how a human is reached
+without being buried.
+
+A gate is the point where a run halts until someone decides. The decider is a human (a **human
+gate**) or an agent applying judgement instead of a person (an **agent gate**). A gate can sit
+anywhere: at an [ingress](./ingress.md), between steps, before an egress. This file is about
+gates in general; humans are the harder case, so most of it is about them.
 
 ## In scope
 
 - Modes of involvement and where they attach.
+- Who decides at a gate, and what an agent gate may decide.
 - How a human is notified and how they respond.
 - What happens while waiting, and what happens if nobody answers.
 
@@ -25,8 +32,12 @@ involvement exist, where directives sit, and how a human is reached without bein
 
 ## Requirements
 
-- Every point that can carry a directive does: routing decisions, pipeline steps, outward
-  actions, exhaust decisions.
+- Every point that can carry a directive does: routing decisions, ingresses, pipeline steps,
+  egresses, outward actions, exhaust decisions.
+- A directive names whether a gate sits at that point and who decides at it. An agent gate is
+  configured the same way a human gate is; only the decider differs.
+- An agent gate is recorded like a human one — which agent decided, on what, with what reason.
+  An agent deciding is not the same as no gate.
 - Directives are configuration, changeable without touching pipeline logic.
 - Directives can be conditional — approve above a value threshold, autonomous below it;
   approve for outward-facing actions, autonomous for internal ones.
@@ -49,6 +60,8 @@ involvement exist, where directives sit, and how a human is reached without bein
 - Who is "the human" if there is ever more than one?
 - How do we avoid approval fatigue turning into rubber-stamping?
 - Can a human intervene mid-run at a point that has no gate?
+- Which decisions may an agent gate make at all, and can an agent gate escalate to a human one
+  instead of deciding?
 
 ## Not in scope
 

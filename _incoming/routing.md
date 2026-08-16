@@ -25,8 +25,11 @@ place where most of the system's value sits.
   message, and sending a mail are all destinations. The router abstracts the transport; nothing
   upstream of it needs to know which one is in play.
 - Mail addressed to a persona's own address routes to that persona on the strength of the
-  address, without a classification step — see
+  address, without a classification step. The item typically lands in that persona's
+  general-purpose pipeline and the agent decides what to do with it — see
   [personas-and-identity.md](./personas-and-identity.md).
+- Routing what leaves a pipeline means attaching a router to its egress. It is the same router,
+  configured against a different source, not a second kind of component.
 - Both rule-based routing (sender matches, addressee matches, label matches, repository matches)
   and judgement-based routing (a classifier or agent decides "this is an invoice") must be
   supported.
@@ -44,7 +47,8 @@ place where most of the system's value sits.
 ## Prior-art evidence
 
 Checked 2026-08-15 against OpenClaw and the Activepieces arm; see
-[prior-art.md](./prior-art.md) for the falsification tests these came out of. Evidence, not
+[research/README.md](../docs/research/README.md) for the falsification tests these came out
+of. Evidence, not
 decisions — the stack is still undecided.
 
 - **Only sessions are addressable, not pipelines.** OpenClaw's `sessions_send` selects a target
@@ -68,13 +72,10 @@ decisions — the stack is still undecided.
 
 Net: the "recorded with its reason" and "testable without running anything" requirements above
 survive both arms unmet. They are the routing-specific part of what
-[prior-art.md](./prior-art.md#what-survives-arm-1) calls guarantees rather than mechanisms.
+[research/README.md](../docs/research/README.md#what-survives-arm-1) calls guarantees rather than mechanisms.
 
 ## Open questions
 
-- Do personas route (mail addressed to the surf coach goes to the surf coach) — settled yes, the
-  address is enough. Still open: does that shortcut skip classification entirely, or does the
-  persona's own pipeline classify afterwards?
 - Is the routing target a pipeline, or the session that runs one? Only sessions are addressable
   in the leading candidate runtime — does Clackworks introduce a pipeline address, or accept
   the session as the address and lose that distinction?
@@ -84,8 +85,6 @@ survive both arms unmet. They are the routing-specific part of what
   so, how do the resulting items relate, and does one failing destination fail the others?
 - Precedence when several rules match: first match, most specific, explicit priority?
 - Which transports does the router speak at the start, and what does adding one cost?
-- An egress can act as a producer, and routing what leaves it means attaching a router to it. Is
-  that the same router component configured twice, or a second kind?
 - Are non-pipeline destinations (a database row, a WhatsApp message) terminal by definition, or
   can they re-enter as items?
 - Who or what does judgement-based routing — a dedicated classifier, a router agent with a
