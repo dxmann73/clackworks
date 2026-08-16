@@ -5,7 +5,7 @@ Status: draft
 ## Purpose
 
 Define the unit of work: what a pipeline is, what it guarantees, and how one is created without
-touching intake or producers.
+touching routing internals or producers.
 
 ## In scope
 
@@ -15,12 +15,13 @@ touching intake or producers.
 
 ## Requirements
 
-- A pipeline consumes items and produces artifacts. Both ends are explicit.
+- A pipeline consumes items and produces items. Both ends are explicit.
 - Two kinds, and the kind is declared: **deterministic** (fixed steps, same input gives same
   output, no judgement) and **agent-driven** (an agent pursues a goal with tools and
   judgement).
-- Pipelines are freely creatable by the user, and creating one requires no change to intake,
-  routing internals, or producers — only registering it as a routing target.
+- Pipelines are freely creatable by the user, and creating one requires no change to routing
+  internals or producers — only registering it as a destination the router can name, and an
+  [ingress](./ingress.md) in front of it.
 - A pipeline declares what it accepts. An item it cannot handle is refused loudly, not
   half-processed.
 - Every pipeline can have a model and compute resources assigned — see
@@ -30,7 +31,7 @@ touching intake or producers.
   input, and where the item went afterwards.
 - Fail fast inside a pipeline too: a step that gets a value it does not expect stops the run
   rather than substituting a default.
-- Pipelines are composable — an artifact of one is an input of the next — without either
+- Pipelines are composable — an output of one is an input of the next — without either
   pipeline knowing about the other.
 
 ## Open questions

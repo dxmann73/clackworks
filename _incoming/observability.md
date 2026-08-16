@@ -15,9 +15,9 @@ glance. A chain reaction you cannot watch is a chain reaction you cannot debug.
 
 ## Requirements
 
-- End-to-end trace per item: where it came from, how intake normalized it, why routing chose
-  what it chose, every step of every run, every human touch, every artifact, and what
-  chained onward.
+- End-to-end trace per item: where it came from, why the router chose what it chose, what the
+  ingress did, every step of every run, every human touch, everything produced, and what chained
+  onward.
 - Traces survive chaining. Following a published post back to its origin is one query, not
   detective work.
 - Decisions are recorded with their reasons, including model-made decisions and their

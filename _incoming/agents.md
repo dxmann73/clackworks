@@ -20,7 +20,7 @@ and personality are covered separately in
   assigned model.
 - An agent's capabilities are declared and bounded. The tax advisor can file and read invoices;
   it cannot push to a repository. Capability is per agent, not global.
-- Agents can produce artifacts and can hand items back to intake. They cannot invoke arbitrary
+- Agents can produce items and can hand items back in for routing. They cannot invoke arbitrary
   pipelines directly — chaining goes through the normal path so it stays observable.
 - An agent must be able to say "I cannot handle this" and route the item to the exhaust with a
   reason, instead of producing something plausible and wrong.
@@ -30,6 +30,14 @@ and personality are covered separately in
 - Agents can be counterparts to each other: one agent's output can be another's input, and
   agents can address each other through their channels.
 - An agent's run reports what it did, what it decided, and what it deliberately did not do.
+
+## Why the agents have identities
+
+An agent with a name, an inbox, a personality, and a memory is addressable. You can mail the
+tax advisor directly. The nutrition coach can reply to you as itself. The surf coach remembers
+what it told you in March. This is not decoration — identity is what makes an agent a stable
+counterpart instead of a stateless function call, and it is what lets agents be producers and
+consumers for each other.
 
 ## Open questions
 

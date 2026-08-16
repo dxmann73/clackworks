@@ -18,6 +18,12 @@ persona and what it means for an agent to have its own channels in the world.
 - A persona has: a name, a personality and voice, a domain of competence, and its own channels.
 - Channels are per persona: the tax advisor has its own mail address; the surf coach has its
   own. Mail to a persona's address routes to that persona's pipelines.
+- A persona's address works in both directions. Inbound, mail to the tax advisor's address
+  arrives through the mail producer like any other mail, and the address travels with the item,
+  which is all the router needs to send it to that persona. Outbound, the persona replies from
+  the same address through an egress.
+- Routing to a persona needs no classifier. Typically the item lands in a general-purpose
+  pipeline where the agent looks at it and decides what to do — see [routing.md](./routing.md).
 - A persona can act outward through its channels — reply to mail, post, message — subject to
   directives about human approval.
 - Personality shapes voice and judgement style, not competence boundaries. Boundaries are

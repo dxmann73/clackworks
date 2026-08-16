@@ -7,6 +7,9 @@ Status: draft
 Everything that cannot be routed, cannot be handled, or failed lands here. The exhaust is a
 decision queue, not a wastebasket. Its size is a health metric.
 
+The shape of the case: a mail arrives from some entity, the router cannot route it, no pipeline
+knows what to do with it, and it fits nowhere. It still has to go somewhere.
+
 ## In scope
 
 - What ends up in the exhaust and why.
@@ -32,6 +35,12 @@ decision queue, not a wastebasket. Its size is a health metric.
 
 ## Open questions
 
+- **Name.** Should this just be called a **dead letter queue**? That is the established term for
+  exactly this content, and it is understood without explanation. "Exhaust" is the machine
+  metaphor and is consistent with the rest of the vocabulary. Decide before the word spreads
+  further — see [open-questions.md](../open-questions.md).
+- What counts as unroutable, concretely — the router found no destination, it found one and the
+  destination refused, or a classifier came back below confidence?
 - Are failures and unroutables in the same pile, or are those two different queues with
   different urgency?
 - Retention: how long does an item sit in the exhaust before it is escalated, archived, or
@@ -39,7 +48,7 @@ decision queue, not a wastebasket. Its size is a health metric.
 - Who does the clustering — a rule, a classifier, an agent with its own persona?
 - Does replaying an old item risk acting on something stale (an invoice long since paid), and
   how is that guarded?
-- Is there an exhaust for artifacts nobody consumed, separate from unroutable inputs?
+- Is there an exhaust for produced items nobody consumed, separate from unroutable inputs?
 
 ## Not in scope
 

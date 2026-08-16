@@ -4,9 +4,10 @@ Status: draft
 
 ## Purpose
 
-Intake handles security. Items come from the open world — mail from strangers, videos, web
-content — and agents act on them with real capabilities. This defines what must not be
-possible.
+Items come from the open world — mail from strangers, videos, web content — and agents act on
+them with real capabilities. This defines what must not be possible. The enforcement point in
+front of a pipeline is its [ingress](./ingress.md); the trust level travels with the item from
+the producer onward.
 
 ## In scope
 
@@ -26,7 +27,7 @@ possible.
   [human-in-the-loop.md](./human-in-the-loop.md).
 - Blast radius is bounded per persona. Compromising one persona's pipeline must not grant
   access to the others' channels, memory, or credentials.
-- Secrets never live in items, artifacts, memory, traces, or the repository. Where they do live
+- Secrets never live in items, memory, traces, or the repository. Where they do live
   is an architecture decision; that they do not live in those places is not negotiable.
 - Anything executed (code from a repository pipeline, a fetched script) runs isolated, with no
   ambient access to credentials or other personas.
@@ -38,7 +39,8 @@ possible.
 
 ## Open questions
 
-- What are the trust levels concretely, and who assigns them — the producer, intake, a rule?
+- What are the trust levels concretely, and who assigns them — the producer, the ingress, a
+  routing rule?
 - How is sender authenticity actually checked per channel (mail spoofing, messaging identity)?
 - What is the defence-in-depth story against injection beyond "data not instruction" —
   isolation, output validation, capability checks at the action boundary?
