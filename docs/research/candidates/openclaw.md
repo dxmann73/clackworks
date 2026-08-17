@@ -39,9 +39,9 @@ required by [pipelines.md](../../../_incoming/pipelines.md) asks for.
 Lobster is also the gate mechanism: it halts on side effects (send, post, delete) and returns a
 resume token, so approving and resuming does not re-run the steps that already ran. The docs' own
 worked example for Lobster is recurring email triage with an approval halt before sending drafts —
-[UC-1](../../../_incoming/use-cases.md#uc-1-mail-triage-into-personas) minus the classification
-step. A router agent that classifies and calls `sessions_send` supplies that step, so
-content-based routing into personas is assemblable today.
+[UC-1](../../specification/use-cases/uc-1-mail-triage-into-personas.md) minus the classification
+step. A router agent that classifies and calls `sessions_send` supplies that step, so content-based
+routing into personas is assemblable today.
 
 ## For
 
@@ -64,4 +64,3 @@ content-based routing into personas is assemblable today.
   uncritically.
 
 ## Mapping to use cases
-

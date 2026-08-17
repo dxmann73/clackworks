@@ -54,7 +54,7 @@ depth. `memory` is `auto` or `manual`; in auto mode it keeps the last N messages
 **Composition and compute.** Flows call flows ("inner flows"), plus workflows-as-code for
 script-shaped work. Worker groups with tags pin a heavy pipeline to its own workers, its own
 memory limit and its own image, which is what
-[UC-2](../../../_incoming/use-cases.md#uc-2-software-development-from-a-todo) means by assigning
+[UC-2](../../specification/use-cases/uc-2-software-development-from-a-todo.md) means by assigning
 compute.
 
 **Durability, precisely.** Jobs live in Postgres. A worker that stops pinging for
@@ -92,4 +92,3 @@ idempotent.
 retention**, 100 emails/day on email triggers, git sync for 2 users.
 
 ## Mapping to use cases
-

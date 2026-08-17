@@ -5,6 +5,7 @@ One file per area that needs specifying. Everything here is a draft until marked
 ## Reading order
 
 Read the [vision](../VISION.md) and [glossary](../glossary.md) first.
+Use cases are in [docs/specification/use-cases/](../docs/specification/use-cases/README.md).
 Research for prior art is in [docs/research/](../docs/research/README.md).
 
 | #  | Area                                                       | Status | Covers                                            |
@@ -24,17 +25,17 @@ Research for prior art is in [docs/research/](../docs/research/README.md).
 | 13 | [security-and-trust.md](./security-and-trust.md)           | draft  | Authenticity, secrets, blast radius, injection    |
 | 14 | [observability.md](./observability.md)                     | draft  | Tracing an item end-to-end, health, audit         |
 | 15 | [control-plane.md](./control-plane.md)                     | draft  | How the system is configured and changed          |
-| 16 | [use-cases.md](./use-cases.md)                             | draft  | Concrete end-to-end walkthroughs                  |
 
 ### Phase 0 — Frame the thing
 
-Settled and no longer open here: 
+Settled and no longer open here:
 
 - scope and constraints are in [VISION.md](../VISION.md#constraints)
 - terms are set in [glossary.md](../glossary.md)
+- researched existing [candidates](../docs/research/candidates/).
 
-There are existing [candidates](../docs/research/candidates/).
-Check all Use Cases and how they would map to each of them.
+Open: Check all [use cases](../docs/specification/use-cases/README.md) and how they would map to each
+of the candidates.
 
 ### Phase 1 — The core loop
 
@@ -46,7 +47,7 @@ Specify only as far as the chosen use case needs.
 | [producers.md](./producers.md)                           | Only the kinds the chosen use case needs. Also inherits item shape, identity, and dedup, with no stage behind it to own them |
 | [routing.md](./routing.md)                               | Where the value sits, per its own Purpose section. The router decides on what the item carries |
 | [ingress.md](./ingress.md)                               | Filter, enrich, gate in front of one pipeline. Cheap now, and the gate belongs here rather than mid-run |
-| [exhaust.md](./exhaust.md)                               | Defines what routing's `unroutable` means. Working the pile — clustering, proposing a pipeline, re-processing — is out of scope, see [use-cases.md](./use-cases.md#not-in-scope) |
+| [exhaust.md](./exhaust.md)                               | Defines what routing's `unroutable` means. Working the pile — clustering, proposing a pipeline, re-processing — is out of scope, see the [use cases](../docs/specification/use-cases/README.md) |
 | [security-and-trust.md](./security-and-trust.md)         | **Trust-boundary slice only.** Data-versus-instruction is cheap now and expensive to retrofit |
 
 ### Phase 2 — Doing the work

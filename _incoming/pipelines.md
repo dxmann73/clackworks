@@ -55,4 +55,3 @@ touching routing internals or producers.
 ## Not in scope
 
 - Pipeline definition format and execution engine. Architecture, deferred.
-- Specific pipelines. Sketches live in [use-cases.md](./use-cases.md).
