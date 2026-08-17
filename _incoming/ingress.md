@@ -41,35 +41,6 @@ and raise a human gate when something about the item looks off.
 - An ingress does no work on behalf of the pipeline. It admits, enriches, or stops. Taking the
   item apart is the pipeline's job.
 
-## Prior-art evidence
-
-Checked 2026-08-15 against OpenClaw and the Activepieces arm; see
-[prior-art.md](../docs/research/prior-art.md). Evidence, not decisions.
-
-- **A per-producer entrance exists in shape.** OpenClaw's Gmail path is push: Gmail API `watch`
-  publishing to a GCP PubSub topic, delivered to a Gateway hook whose mapping matches on `path`.
-  The mapping templates a per-message session key from the payload —
-  `hook:gmail:{{messages[0].id}}` — which makes the provider's message id the de facto item
-  identity. That is producer-shaped, not ingress-shaped: it is about arrival, not about guarding
-  a pipeline entrance.
-- **Dedup is expressible at the door.** `POST /hooks/agent` takes an `idempotencyKey` and an
-  explicit `sessionKey`; the latter requires `hooks.allowRequestSessionKey: true` and a non-empty
-  `hooks.allowedSessionKeyPrefixes` allowlist. Belongs with the producer question of who owns
-  identity and dedup.
-- **No common item shape across producers.** Each channel and each hook carries its own payload.
-  Normalization is the addition, and it is the requirement no surveyed system meets. With no
-  stage between producer and router, it has no owner — the question sits with
-  [producers.md](./producers.md).
-- **Admission control for untrusted senders has a documented precedent, and it is ingress-shaped.**
-  OpenClaw's recommended Gmail reader runs a dedicated agent with `sandbox.mode: all`,
-  `scope: session`, `workspaceAccess: none`, a minimal tool profile, an explicit untrusted-data
-  message template, and `deliver: false`. That is exactly the "guard the entrance to this
-  pipeline" pattern. Worth copying wholesale into
-  [security-and-trust.md](./security-and-trust.md); the strongest such shape found in either arm.
-- **Neither arm raises a gate at the entrance.** Lobster's approval checkpoints sit at steps
-  inside a pipeline. Nothing surveyed holds an item *before* the run starts because something
-  about it looks unusual in context.
-
 ## Open questions
 
 - What does an ingress match on to decide "unusual" — a stored history per sender or channel, a

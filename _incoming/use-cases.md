@@ -7,10 +7,6 @@ Status: draft
 Concrete end-to-end walkthroughs. These are the tests the specification has to pass: if a
 design cannot express these, it is wrong.
 
-Second test, from [VISION.md](../VISION.md#how-clackworks-itself-is-licensed): every use case
-here must be fully runnable on the community edition. If one of them needs a capability that
-lands behind the enterprise edge, the split is wrong, not the use case.
-
 ## In scope
 
 - Narrative walkthroughs from producer to terminal item.
@@ -34,9 +30,10 @@ Each of those pipelines has an ingress in front of it, which is where an unusual
 a trusted sender who has never sent an office document before gets a human gate before the
 pipeline runs.
 
-Awkward parts: a mail that is two things at once and fans out to both; a thread where the
-classification changes halfway; a sender who is a stranger asking for something
-plausible-sounding.
+Awkward parts:
+
+- a mail that is two things at once needs to be fanned out more than one pipeline
+- a sender asking for something plausible-sounding but dangerous.
 
 ## UC-2: Software development from a TODO
 
@@ -59,19 +56,6 @@ the website. Human gate before publishing, always.
 Awkward parts: the thought duplicates something written a year ago; the draft is rejected and
 needs to go back for revision rather than forward; the video transcript is an hour long.
 
-## UC-4: Working the exhaust
-
-The only use case neither falsification arm expresses — see
-[research/README.md](../docs/research/README.md#what-arm-2-shows). Both give somewhere to put
-unroutable items; neither clusters them, proposes a pipeline, or re-processes a backlog.
-
-Fourteen unroutable items accumulate. The system clusters them: they are all newsletters from
-the same category. The user decides — build a pipeline, or discard the lot deliberately. If a
-pipeline is built, the fourteen items are re-processed through routing.
-
-Awkward parts: re-processing stale items that were time-sensitive; a cluster that is actually
-two different things.
-
 ## UC-5: Someone mails the surf coach directly
 
 Mail arrives addressed to the surf coach's own address. Routing shortcuts on the address. The
@@ -81,13 +65,26 @@ the reply goes out automatically or waits for approval.
 Awkward parts: the mail is not about surfing; the sender does not know they are mailing an
 agent; the reply commits to something.
 
+## UC-6: Project request to the career advisor
+
+An agency mails a project request. Routing sends it to the career advisor persona, which holds
+the current stance on what work is wanted. The pipeline scores the request against that stance:
+hard criteria first (freelance, rate floor, availability window), then fit as judgement. The
+persona replies as itself, from its own address — interested with the current CV resolved at
+send time, wrong kind of work, not available, or parked with a wake-up condition. Human gate
+before any reply that commits.
+
+Awkward parts: the same project arrives from three agencies and the replies must not contradict
+each other; the request states no rate, so the pipeline must ask rather than reject; a parked
+item wakes up after the stance has changed.
+
 ## Open questions
 
+- Where does the stance live — as memory of the career advisor persona, or as a directive in the
+  control plane that the persona reads? UC-6 needs it to be editable without touching the
+  pipeline.
+- Parking with a wake-up condition is not the exhaust and not a gate. Is it a third thing, or a
+  gate whose decider is a clock?
 - Which use case is built first, and what is the minimum machine that supports it end to end?
-  UC-1 is expressible on both surveyed arms already, so building it first proves nothing; UC-4
-  is the one nothing expresses.
+  UC-1 is expressible on both surveyed arms already, so building it first proves nothing.
 - Are there use cases here that any sane design should refuse, rather than support?
-
-## Not in scope
-
-- Pipeline definitions. These are narratives, not specs.

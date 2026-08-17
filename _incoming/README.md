@@ -1,14 +1,11 @@
 # _incoming — specification areas
 
 One file per area that needs specifying. Everything here is a draft until marked otherwise.
-No architecture, no stack, no implementation — descriptions of what must exist and what it must
-do.
 
 ## Reading order
 
-Read the [glossary](../glossary.md) first; every other file assumes its vocabulary. It and
-[open-questions.md](../open-questions.md) live at the repo root — they are settled enough to
-have left `_incoming/`.
+Read the [vision](../VISION.md) and [glossary](../glossary.md) first.
+Research for prior art is in [docs/research/](../docs/research/README.md).
 
 | #  | Area                                                       | Status | Covers                                            |
 | -- | ---------------------------------------------------------- | ------ | ------------------------------------------------- |
@@ -29,32 +26,15 @@ have left `_incoming/`.
 | 15 | [control-plane.md](./control-plane.md)                     | draft  | How the system is configured and changed          |
 | 16 | [use-cases.md](./use-cases.md)                             | draft  | Concrete end-to-end walkthroughs                  |
 
-Prior art is not a specification area and no longer lives here. The research — the landscape
-survey, the per-product detail, and the falsification test run on both arms — is in
-[docs/research/](../docs/research/README.md). It is an input to Phase 0 below, not a spec area.
-
-## Working order
-
-Reading order above is narrative — it follows an item through the machine. It is the wrong
-order to *write* in, because it treats all sixteen areas as equally urgent. That is the
-"never ships" risk named in [prior-art.md](../docs/research/prior-art.md#honest-assessment).
-
-Working order is by what blocks what. Do not open a phase until the one above it is answered.
-
 ### Phase 0 — Frame the thing
 
-Cheap to answer, and every later requirement changes depending on the answers. Nothing else
-should be touched first.
+Settled and no longer open here: 
 
-Settled and no longer open here: scope and constraints are in
-[VISION.md](../VISION.md#constraints); an arrived item and a produced item are one type, mutable
-with history, per [glossary.md](../glossary.md); the falsification test has been run on both
-arms and is written up in [docs/research/README.md](../docs/research/README.md).
+- scope and constraints are in [VISION.md](../VISION.md#constraints)
+- terms are set in [glossary.md](../glossary.md)
 
-| Area                                                             | What specifically                                                                                   |
-| ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| [use-cases.md](./use-cases.md)                                   | **Pick one.** Declare which use case v1 serves and which four are out of scope until it works. Both falsification arms express UC-1; UC-4 is the only use case neither expresses |
-| [docs/research/](../docs/research/README.md)                     | **Build on top, or beside?** Every mechanism exists already, so the decision is whether the surviving guarantees are a system or a layer on one arm. The falsification test and both arms are written up there; the survey and per-product detail sit beside it |
+There are existing [candidates](../docs/research/candidates/).
+Check all Use Cases and how they would map to each of them.
 
 ### Phase 1 — The core loop
 
@@ -66,7 +46,7 @@ Specify only as far as the chosen use case needs.
 | [producers.md](./producers.md)                           | Only the kinds the chosen use case needs. Also inherits item shape, identity, and dedup, with no stage behind it to own them |
 | [routing.md](./routing.md)                               | Where the value sits, per its own Purpose section. The router decides on what the item carries |
 | [ingress.md](./ingress.md)                               | Filter, enrich, gate in front of one pipeline. Cheap now, and the gate belongs here rather than mid-run |
-| [exhaust.md](./exhaust.md)                               | The pile is standard plumbing; the loop over it (UC-4) is what nothing else expresses. Also defines what routing's `unroutable` means |
+| [exhaust.md](./exhaust.md)                               | Defines what routing's `unroutable` means. Working the pile — clustering, proposing a pipeline, re-processing — is out of scope, see [use-cases.md](./use-cases.md#not-in-scope) |
 | [security-and-trust.md](./security-and-trust.md)         | **Trust-boundary slice only.** Data-versus-instruction is cheap now and expensive to retrofit |
 
 ### Phase 2 — Doing the work
